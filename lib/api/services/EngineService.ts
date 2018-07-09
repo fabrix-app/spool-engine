@@ -26,7 +26,7 @@ export class EngineService extends Service {
    */
   count(modelName, criteria, options) {
     const Model = this.getModel(modelName)
-    const modelOptions = _.defaultsDeep({}, options, this.app.config.get('footprints.models.options'))
+    const modelOptions = _.defaultsDeep({}, options, this.app.config.get('tapestries.models.options'))
     if (!Model) {
       return Promise.reject(new Errors.ModelError('E_NOT_FOUND', `${modelName} can't be found`, []))
     }
@@ -137,7 +137,6 @@ export class EngineService extends Service {
     for (const option of options.reverse()) {
       newOptions = _.defaults({}, newOptions, option)
     }
-    // console.log('new options', _.omitBy(newOptions, _.isNil))
     return _.omitBy(newOptions, _.isNil)
   }
 
@@ -300,8 +299,7 @@ export class EngineService extends Service {
    * @param options
    * @returns {Promise.<T>}
    */
-  subscriptionFailure(event, name, err, options) {
-    options = options || {}
+  subscriptionFailure(event, name, err, options = {}) {
 
     let resEvent, resSubscriber
     return this.resolveEvent(event, {transaction: options.transaction || null})

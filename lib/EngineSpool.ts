@@ -66,6 +66,10 @@ export class EngineSpool extends ExtensionSpool {
       return Promise.reject(new Error(`spool-engine requires spools: ${ requiredSpools.join(', ') }!`))
     }
 
+    if (!this.app.config.get('engine')) {
+      return Promise.reject(new Error('No configuration found at config.engine!'))
+    }
+
     return Promise.all([
       Validator.validateEngineConfig(this.app.config.get('engine'))
     ])
@@ -97,7 +101,7 @@ export class EngineSpool extends ExtensionSpool {
   /**
    * clear subscriptions
    */
-  unload() {
+  async unload() {
     return Promise.all([
       Engine.cancelPubSub(this.app),
       Engine.cancelCrons(this.app)
