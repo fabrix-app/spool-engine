@@ -1,6 +1,6 @@
 import { FabrixApp } from '@fabrix/fabrix'
 import { FabrixModel as Model } from '@fabrix/fabrix/dist/common'
-
+import { SequelizeResolver } from '@fabrix/spool-sequelize'
 
 // const helpers = require('engine-helpers')
 const shortId = require('shortid')
@@ -74,6 +74,10 @@ export class Event extends Model {
         defaultValue: Boolean(app.config.get('engine.live_mode'))
       }
     }
+  }
+
+  static get resolver () {
+    return SequelizeResolver
   }
 
   /**

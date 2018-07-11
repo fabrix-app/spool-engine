@@ -1,5 +1,6 @@
 import { FabrixApp } from '@fabrix/fabrix'
 import { FabrixModel as Model } from '@fabrix/fabrix/dist/common'
+import { SequelizeResolver } from '@fabrix/spool-sequelize'
 
 import * as _ from 'lodash'
 import { EVENT_SUBSCRIBER_STATUS } from '../../enums/index'
@@ -64,6 +65,10 @@ export class EventSubscriber extends Model {
         defaultValue: EVENT_SUBSCRIBER_STATUS.PENDING
       }
     }
+  }
+
+  public static get resolver () {
+    return SequelizeResolver
   }
 
   /**

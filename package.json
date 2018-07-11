@@ -1,6 +1,6 @@
 {
   "name": "@fabrix/spool-engine",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0",
   "description": "Spool - Emitter Engine for Fabrix",
   "homepage": "https://fabrix.app",
   "author": {
@@ -56,10 +56,10 @@
     "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "@fabrix/fabrix": "^1.0.1",
+    "@fabrix/fabrix": "^1.0.6",
     "@fabrix/lint": "^1.0.0-alpha.3",
     "@fabrix/spool-i18n": "^1.0.0",
-    "@fabrix/spool-sequelize": "^1.0.0",
+    "@fabrix/spool-sequelize": "^1.0.1",
     "@fabrix/spool-express": "^1.0.0",
     "@fabrix/spool-router": "^1.0.0",
     "@types/node": "~10.3.4",
@@ -77,10 +77,10 @@
     "typescript": "~2.8.1"
   },
   "peerDependencies": {
-    "@fabrix/fabrix": "^1.0.0-alpha.15",
-    "@fabrix/spool-i18n": "^1.0.0-alpha.6",
-    "@fabrix/spool-router": "^1.0.0-alpha.12",
-    "@fabrix/spool-sequelize": "^1.0.0-alpha.10"
+    "@fabrix/fabrix": "^1.0.6",
+    "@fabrix/spool-i18n": "^1.0.0",
+    "@fabrix/spool-router": "^1.0.0",
+    "@fabrix/spool-sequelize": "^1.0.1"
   },
   "engines": {
     "node": ">= 7.6.0 =< 10.0.0",

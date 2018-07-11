@@ -7,13 +7,14 @@ const fs = require('fs')
 const Model = require('@fabrix/fabrix/dist/common').FabrixModel
 const Event = require('../dist').Event
 const Cron = require('../dist').Cron
+const SequelizeResolver = require('@fabrix/spool-sequelize').SequelizeResolver
 
 const App = {
   api: {
     models: {
-      Event: require('../dist/api/models/Event').Event,
-      EventItem: require('../dist/api/models/EventItem').EventItem,
-      EventSubscriber: require('../dist/api/models/EventSubscriber').EventSubscriber,
+      // Event: require('../dist/api/models/Event').Event,
+      // EventItem: require('../dist/api/models/EventItem').EventItem,
+      // EventSubscriber: require('../dist/api/models/EventSubscriber').EventSubscriber,
       Item: class Item extends Model {
         static config(app, Sequelize) {
           return {
@@ -27,6 +28,9 @@ const App = {
               allowNull: false
             }
           }
+        }
+        static resolver() {
+          return SequelizeResolver
         }
       }
     },

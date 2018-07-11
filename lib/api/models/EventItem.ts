@@ -1,5 +1,6 @@
 import { FabrixApp } from '@fabrix/fabrix'
 import { FabrixModel as Model } from '@fabrix/fabrix/dist/common'
+import { SequelizeResolver } from '@fabrix/spool-sequelize'
 
 /**
  * @module EventItem
@@ -38,6 +39,10 @@ export class EventItem extends Model {
         references: null
       }
     }
+  }
+
+  public static get resolver () {
+    return SequelizeResolver
   }
 
   /**

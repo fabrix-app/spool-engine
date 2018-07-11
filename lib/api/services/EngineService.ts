@@ -241,7 +241,7 @@ export class EngineService extends Service {
    * @returns {Promise.<T>}
    */
   // TODO Publish event on Commit if transaction is present
-  publish(type, data, options = {}) {
+  publish(type, data, options: {[key: string]: any} = {}) {
     return new Promise((resolve, reject) => {
       // If this needs to be auto saved, save and continue immediately.
       if (this.app.config.get('engine.auto_save') || options.save) {
@@ -299,7 +299,7 @@ export class EngineService extends Service {
    * @param options
    * @returns {Promise.<T>}
    */
-  subscriptionFailure(event, name, err, options = {}) {
+  subscriptionFailure(event, name, err, options: {[key: string]: any} = {}) {
 
     let resEvent, resSubscriber
     return this.resolveEvent(event, {transaction: options.transaction || null})
