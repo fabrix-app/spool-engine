@@ -1,10 +1,9 @@
 import * as joi from 'joi'
-export const routes = [
-  {
-    method: ['GET'],
-    path: '/events',
-    handler: 'EventController.findAll',
+export const routes = {
+  '/events': {
+    'GET': 'EventController.findAll',
     config: {
+      prefix: 'engine.prefix',
       validate: {
         query: {
           offset: joi.number(),
@@ -21,11 +20,10 @@ export const routes = [
       }
     }
   },
-  {
-    method: ['POST'],
-    path: '/event',
-    handler: 'EventController.create',
+  '/event': {
+    'POST': 'EventController.create',
     config: {
+      prefix: 'engine.prefix',
       app: {
         permissions: {
           resource_name: 'apiPostEventRoute',
@@ -34,11 +32,10 @@ export const routes = [
       }
     }
   },
-  {
-    method: ['GET'],
-    path: '/event/:id',
-    handler: 'EventController.findOne',
+  '/event/:id': {
+    'GET': 'EventController.findOne',
     config: {
+      prefix: 'engine.prefix',
       validate: {
         params: {
           id: joi.string().required()
@@ -52,4 +49,4 @@ export const routes = [
       }
     }
   }
-]
+}

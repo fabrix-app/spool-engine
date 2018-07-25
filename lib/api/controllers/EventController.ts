@@ -18,9 +18,9 @@ export class EventController extends Controller {
     const limit = Math.max(0, req.query.limit || 10)
     const offset = Math.max(0, req.query.offset || 0)
     const sort = req.query.sort || [['created_at', 'DESC']]
-    const where = req.query.where
+    const where = req.jsonCriteria(req.query.where)
 
-    Event.findAndCount({
+    Event.findAndCountAll({
       order: sort,
       offset: offset,
       limit: limit,
@@ -28,7 +28,7 @@ export class EventController extends Controller {
     })
       .then( events => {
         // Paginate
-        this.app.services.EngineService.paginate(res, events.count, limit, offset, sort)
+        res.paginate(events.count, limit, offset, sort)
         return res.json(events.rows)
       })
       .catch(err => {

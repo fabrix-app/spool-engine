@@ -2,8 +2,7 @@ import { FabrixApp } from '@fabrix/fabrix'
 import { FabrixModel as Model } from '@fabrix/fabrix/dist/common'
 import { SequelizeResolver } from '@fabrix/spool-sequelize'
 
-// const helpers = require('engine-helpers')
-const shortId = require('shortid')
+import * as shortId from 'shortid'
 
 /**
  * @module Event
@@ -76,7 +75,7 @@ export class Event extends Model {
     }
   }
 
-  static get resolver () {
+  public static get resolver () {
     return SequelizeResolver
   }
 
@@ -84,7 +83,7 @@ export class Event extends Model {
    * Associate the Model
    * @param models
    */
-  associate(models) {
+  public static associate(models) {
     models.Event.hasMany(models.EventSubscriber, {
       as: 'subscribers',
       // foreignKey: 'event_id',

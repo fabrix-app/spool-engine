@@ -75,7 +75,7 @@ export class EventSubscriber extends Model {
    * Associate the Model
    * @param models
    */
-  associate (models) {
+  public static associate (models) {
     models.EventSubscriber.belongsTo(models.Event, {
       // onDelete: 'CASCADE'
       // unique: 'subscriberUniqueKey'

@@ -1,7 +1,7 @@
-'use strict'
-const joi = require('joi')
+import * as joi from 'joi'
 
 export const engineConfig = joi.object().keys({
+  prefix: joi.string().allow('', null),
   live_mode: joi.boolean().required(),
   auto_save: joi.boolean().required(),
   profile: joi.string().allow(null).required(),

@@ -70,7 +70,7 @@ export const Engine = {
    *
    * @param app
    */
-  streamSequelize: (app) => {
+  streamSequelize: (app: FabrixApp ) => {
     const stream = sequelizeStream(app.models['Event'].sequelize)
     // Make past tense
     const METHODS = {
@@ -97,7 +97,7 @@ export const Engine = {
    * @param app
    * @returns {Promise.<T>}
    */
-  cancelPubSub: (app) => {
+  cancelPubSub: (app: FabrixApp) => {
     app.pubSub.clearAllSubscriptions()
     return Promise.resolve()
   },
@@ -106,7 +106,7 @@ export const Engine = {
    * @param app
    * @returns {Promise.<T>}
    */
-  cancelCrons: (app) => {
+  cancelCrons: (app: FabrixApp) => {
     for (const j in app.scheduler.scheduledJobs) {
       if (app.scheduler.scheduledJobs.hasOwnProperty(j)) {
         const job = app.scheduler.scheduledJobs[j]
@@ -114,15 +114,6 @@ export const Engine = {
       }
     }
     return Promise.resolve()
-  },
-  /**
-   *
-   * @param app
-   * @returns {Promise.<{}>}
-   */
-  addPolicies: (app: FabrixApp) => {
-    // app.config.policies = _.merge(policies, app.config.policies)
-    // return Promise.resolve({})
   },
 
   /**

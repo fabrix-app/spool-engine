@@ -5,8 +5,8 @@ const _ = require('lodash')
 const smokesignals = require('smokesignals')
 const fs = require('fs')
 const Model = require('@fabrix/fabrix/dist/common').FabrixModel
-const Event = require('../dist').Event
-const Cron = require('../dist').Cron
+const Event = require('../../dist/index').Event
+const Cron = require('../../dist/index').Cron
 const SequelizeResolver = require('@fabrix/spool-sequelize').SequelizeResolver
 
 const App = {
@@ -29,7 +29,7 @@ const App = {
             }
           }
         }
-        static resolver() {
+        static get resolver() {
           return SequelizeResolver
         }
       }
@@ -166,7 +166,7 @@ const App = {
         }
       }
     },
-    services: require('../dist/api/services')
+    services: require('../../dist/api/services/index')
   },
   pkg: {
     name: 'spool-engine-test',
@@ -186,13 +186,13 @@ const App = {
       defaultStore: 'sequelize',
       migrate: 'drop'
     },
-    routes: [],
+    routes: {},
     main: {
       spools: [
         require('@fabrix/spool-router').RouterSpool,
         require('@fabrix/spool-sequelize').SequelizeSpool,
         require('@fabrix/spool-express').ExpressSpool,
-        require('../dist').EngineSpool
+        require('../../dist/index').EngineSpool
       ]
     },
     policies: {},
