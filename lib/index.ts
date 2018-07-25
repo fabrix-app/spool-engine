@@ -3,7 +3,7 @@
 import * as Schemas from './schemas'
 import * as Utils from './utils'
 import * as Enums from './enums'
-import * as Errors from './Errors'
+import * as Errors from './errors'
 
 export { EngineSpool } from './EngineSpool'
 export { Cron } from './Cron'
