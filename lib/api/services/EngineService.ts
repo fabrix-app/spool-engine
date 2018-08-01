@@ -79,7 +79,7 @@ export class EngineService extends Service {
         func(type, data, options)
       }
       catch (err) {
-        console.log('broke', err)
+        // console.log('broke', err)
         const event = {
           object: type.split('.')[0],
           type: type,
