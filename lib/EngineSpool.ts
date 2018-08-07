@@ -58,7 +58,7 @@ export class EngineSpool extends ExtensionSpool {
   /**
    * Validate Configuration
    */
-  validate () {
+  async validate () {
     const requiredSpools = ['express', 'sequelize', 'router']
     const spools = Object.keys(this.app.spools)
 
