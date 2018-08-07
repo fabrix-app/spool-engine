@@ -8,7 +8,6 @@ export const Validator = {
 
   // Validate Engine Config
   validateEngineConfig (config) {
-    console.log('BROKE', config)
     return new Promise((resolve, reject) => {
       joi.validate(config, engineConfig, (err, value) => {
         if (err) {

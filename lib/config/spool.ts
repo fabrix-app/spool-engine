@@ -12,7 +12,7 @@ export const spool = {
     resources: ['controllers', 'services', 'models'],
     api: {
       controllers: ['EventController'],
-      services: ['EngineServiceService'],
+      services: ['EngineService'],
       models: ['Event', 'EventItem', 'EventSubscriber']
     },
     config: [ 'engine', 'routes' ]
