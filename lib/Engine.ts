@@ -18,7 +18,7 @@ rabbit.nackOnError()
 export const Engine = {
 
   /**
-   * configure - Configure the Proxy Engine
+   * configure - Configure the Engine
    * @param app
    */
   configure: (app) => {
@@ -126,7 +126,7 @@ export const Engine = {
     return Promise.resolve({})
   },
   // /**
-  //  * add Cron Jobs to Proxy Engine
+  //  * Add Cron Jobs to Engine
   //  * @param app
   //  * @returns {Promise.<{}>}
   //  */
@@ -144,7 +144,7 @@ export const Engine = {
         && app.config.get('engine.crons_config.auto_schedule') !== false
       ) {
         cron.schedule()
-        app.log.debug(`Proxy Engine auto scheduled ${ cron.name }: ${ cron.scheduledJobs.length } jobs`)
+        app.log.debug(`Engine auto scheduled ${ cron.name }: ${ cron.scheduledJobs.length } jobs`)
       }
 
       const profile = app.config.get('engine.profile')
@@ -166,7 +166,7 @@ export const Engine = {
     return
   },
   // /**
-  //  * add Events to Proxy Engine
+  //  * Add Events to Engine
   //  * @param app
   //  * @returns {Promise.<{}>}
   //  */
@@ -180,7 +180,7 @@ export const Engine = {
         && app.config.get('engine.events_config.auto_subscribe') !== false
       ) {
         event.subscribe()
-        app.log.debug(`Proxy Engine auto subscribed ${ event.name }: ${event.subscribers.length} subscribers`)
+        app.log.debug(`Engine auto subscribed ${ event.name }: ${event.subscribers.length} subscribers`)
       }
       // Load profile
       const profile = app.config.get('engine.profile')

@@ -4,7 +4,7 @@ import { Errors } from '../../'
 import { EVENT_SUBSCRIBER_STATUS } from '../../enums'
 /**
  * @module EngineService
- * @description Global Proxy Engine Service
+ * @description Global Engine Service
  */
 export class EngineService extends Service {
   /**
