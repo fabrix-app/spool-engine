@@ -32,8 +32,8 @@ describe('Cron', () => {
     done()
   })
   it('should have time remaining until start', done => {
-    // we are giving a 100 millisecond lead time here, because this is short.
-    if (global.app.crons.onAutoTestCron.timeTilStart > 100) {
+    // we are giving a 10 millisecond lead time here, because this is short and fast.
+    if (global.app.crons.onAutoTestCron.timeTilStart > 10) {
       assert.equal(global.app.crons.onAutoTestCron.scheduledJobs.length, 0)
     }
     else {
@@ -46,7 +46,7 @@ describe('Cron', () => {
     setTimeout( function() {
       assert.equal(global.app.crons.onAutoTestCron.scheduledJobs.length, 2)
       done()
-    },1000)
+    }, 1000)
   })
   it('should find a job by name', done => {
     // assert.notEqual(global.app.crons.onAutoTestCron.scheduledJobs.length, 0)
