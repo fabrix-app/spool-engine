@@ -5,7 +5,6 @@ const CronProxyHandler = {
   get (target, key, args) {
     // Methods that extend the Cron Class
     const allowedMethods = target.methods ? target.methods : []
-    // Methods that are reserved
     const unallowedMethods = [
       'cancel',
       'cancelNext',
@@ -13,13 +12,14 @@ const CronProxyHandler = {
       'findJobByName',
       'nextInvocation',
       'reschedule',
-      'unfreeze'
+      'unfreeze',
+      ...target.unallowedMethods
     ]
-
     if (
       target.immutable === true
       && target.timeTilStart > 0
       && allowedMethods.indexOf(key) > -1
+      // Methods that are reserved
       && unallowedMethods.indexOf(key) === -1
     ) {
       // Log to debug that the cron is being delayed
@@ -40,10 +40,14 @@ const CronProxyHandler = {
 }
 
 export class Cron {
-  app
-  scheduler
-  _uptime_delay
-  _uptime
+  public app
+  public scheduler
+  private _uptime_delay
+  private _uptime
+
+  private unallowedMethods: string[] = [
+
+  ]
 
   constructor (app: FabrixApp) {
     Object.defineProperties(this, {
