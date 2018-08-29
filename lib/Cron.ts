@@ -45,7 +45,7 @@ export class Cron {
   private _uptime_delay
   private _uptime
 
-  private unallowedMethods: string[] = [
+  public unallowedMethods: string[] = [
 
   ]
 
