@@ -43,7 +43,7 @@ describe('Rabbit', () => {
       assert.equal(global.app.finalizeCount, 1)
       assert.equal(global.app.testValue, testValue)
       done()
-    }, 10)
+    }, 500)
   })
 
   it('should only listen to tasks in its own profile', done => {
@@ -53,7 +53,7 @@ describe('Rabbit', () => {
     setTimeout(() => {
       assert.equal(global.app.callCount, 0)
       done()
-    }, 10)
+    }, 500)
   })
 
   it('should listen to multiple tasks in its own profile', done => {
@@ -63,7 +63,7 @@ describe('Rabbit', () => {
       assert.equal(global.app.callCount, 1)
       assert.equal(global.app.testValue, testValue)
       done()
-    }, 10)
+    }, 500)
   })
 
   it('should return a publish id, to be used for cancelling', () => {
@@ -81,8 +81,6 @@ describe('Rabbit', () => {
     function delay(taskId, done) {
       delays++
       if (global.app.tasker.active_tasks.get('TestTask3').length > 0) {
-
-        console.log('ACTIVE TASKS', global.app.tasker.active_tasks)
         global.app.tasker.cancel(task, taskId)
           .then(() => {
             setTimeout(() => {
@@ -96,7 +94,7 @@ describe('Rabbit', () => {
           })
       }
       else if (delays > 1000) {
-        console.log('Aborting test tick', delays)
+        console.log('Aborting test on tick', delays)
         done()
       }
       else {
@@ -109,21 +107,6 @@ describe('Rabbit', () => {
     global.app.tasker.publish(task, {})
       .then(taskId => {
         return delay(taskId, done)
-        // console.log('ACTIVE TASKS', global.app.tasker.active_tasks)
-        // setTimeout(() => {
-        //   console.log('ACTIVE TASKS', global.app.tasker.active_tasks)
-        //   return global.app.tasker.cancel(task, taskId)
-        //     .then(() => {
-        //       setTimeout(() => {
-        //         assert.equal(global.app.interruptCount, 1)
-        //         done()
-        //       }, 500)
-        //     })
-        //     .catch(err => {
-        //       console.log('BROKE', err)
-        //       done(err)
-        //     })
-        // }, 500)
       })
   })
 
@@ -131,12 +114,13 @@ describe('Rabbit', () => {
     const task = 'ErrorTestTask'
     const testValue = 9362381
     global.app.tasker.publish(task, { testValue })
+
     setTimeout(() => {
       assert.equal(global.app.callCount, 1)
       assert.equal(global.app.finalizeCount, 1)
       assert.equal(global.app.testValue, testValue)
       done()
-    }, 100)
+    }, 500)
   })
 
   it('should send a single acknowledgement, even if .ack is called more than once', done => {
@@ -147,6 +131,6 @@ describe('Rabbit', () => {
       assert.equal(global.app.callCount, 1)
       assert.equal(global.app.finalizeCount, 1)
       done()
-    }, 100)
+    }, 500)
   })
 })
