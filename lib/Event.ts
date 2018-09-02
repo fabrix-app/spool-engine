@@ -1,7 +1,7 @@
 export class Event {
-  app
-  pubSub
-  methods
+  public app
+  public pubSub
+  public methods
 
   constructor (app) {
     Object.defineProperties(this, {

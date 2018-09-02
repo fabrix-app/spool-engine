@@ -18,9 +18,12 @@ export const engine = {
   tasks_config: {
     auto_que: true,
     connection: {
-      exchange: process.env.TASK_EXCHANGE, // optional, defaults to `tasks-work-x`
-      work_queue_name: process.env.TASK_WORK_QUEUE, // optional, defaults to `tasks-work-q`
-      interrupt_queue_name: process.env.TASK_INTERRUPT_QUEUE, // optional, defaults to `tasks-interrupt-q`
+      // optional, defaults to `tasks-work-x`
+      exchange: 'tasks-work-x', // process.env.TASK_EXCHANGE,
+      // optional, defaults to `tasks-work-q`
+      work_queue_name: 'tasks-work-q', // process.env.TASK_WORK_QUEUE,
+      // optional, defaults to `tasks-interrupt-q`
+      interrupt_queue_name: 'tasks-interrupt-q', // process.env.TASK_INTERRUPT_QUEUE,
 
       /**
        * The RabbitMQ connection information.

@@ -7,6 +7,7 @@ const fs = require('fs')
 const Model = require('@fabrix/fabrix/dist/common').FabrixModel
 const Event = require('../../dist/index').Event
 const Cron = require('../../dist/index').Cron
+const Task = require('../../dist/index').Task
 const SequelizeResolver = require('@fabrix/spool-sequelize').SequelizeResolver
 
 const App = {
@@ -166,6 +167,14 @@ const App = {
         }
       }
     },
+    tasks: {
+      TestTask: require('./TestTask'),
+      TestTask2: require('./TestTask2'),
+      TestTask3: require('./TestTask3'),
+      OtherTestTask: require('./OtherTestTask'),
+      ErrorTestTask: require('./ErrorTestTask'),
+      MultiAckTest: require('./MultiAckTest')
+    },
     services: require('../../dist/api/services/index')
   },
   pkg: {
@@ -251,11 +260,43 @@ const App = {
         auto_que: true,
         profiles: {
           testProfile: [
-            'testTask.test'
+            'TestTask',
+            'TestTask2',
+            'TestTask3',
+            'ErrorTestTask',
+            'MultiAckTest'
           ],
           otherProfile: [
-            'otherTestTask.test'
+            'OtherTestTask'
           ]
+        },
+        connection: {
+        //   exchange: process.env.TASK_EXCHANGE, // optional, defaults to `tasks-work-x`
+        //   work_queue_name: process.env.TASK_WORK_QUEUE, // optional, defaults to `tasks-work-q`
+        //   interrupt_queue_name: process.env.TASK_INTERRUPT_QUEUE, // optional, defaults to `tasks-interrupt-q`
+        //
+        //   /**
+        //    * The RabbitMQ connection information.
+        //    * See: https://www.rabbitmq.com/uri-spec.html
+        //    */
+        //   // host: process.env.TASK_RMQ_HOST,
+        //   // user: process.env.TASK_RMQ_USER,
+        //   // pass: process.env.TASK_RMQ_PASS,
+        //   // port: process.env.TASK_RMQ_PORT,
+        //   // vhost: process.env.TASK_RMQ_VHOST,
+        //
+        //   /**
+        //    * Connection information could also be passed via uri
+        //    */
+        //   uri: process.env.RMQ_URI || 'amqp://',
+
+          /**
+           * Additional, optional connection options (default values shown)
+           */
+          heartbeat: 30,
+          timeout: null, // this is the connection timeout (in milliseconds, per connection attempt), and there is no default
+          failAfter: 60, // limits how long rabbot will attempt to connect (in seconds, across all connection attempts). Defaults to 60
+          retryLimit: 3 // limits number of consecutive failed attempts
         }
       }
     }
