@@ -19,7 +19,8 @@ export const engineConfig = joi.object().keys({
   // Tasks Config
   tasks_config: joi.object().keys({
     auto_que: joi.boolean(),
-    profiles: joi.object().pattern(/^/, joi.array().items(joi.string().regex(/(.+)\.(.+)/))),
+    // profiles: joi.object().pattern(/^/, joi.array().items(joi.string().regex(/(.+)\.(.+)/))),
+    profiles: joi.object().pattern(/^/, joi.array().items(joi.string())),
     exchange_name: joi.string(),
     connection: joi.object().keys({
       exchange: joi.string(),

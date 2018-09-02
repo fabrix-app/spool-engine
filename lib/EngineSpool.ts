@@ -1,6 +1,10 @@
 import { ExtensionSpool } from '@fabrix/fabrix/dist/common/spools/extension'
 import * as schedule from 'node-schedule'
 const pubSub = require('./pubSub')
+//
+// import * as rabbit from 'rabbot'
+// // automatically nack exceptions in handlers
+// rabbit.nackOnError()
 
 import { Engine } from './Engine'
 import { Validator } from './validator'
@@ -12,6 +16,7 @@ import * as api  from './api/index'
 export class EngineSpool extends ExtensionSpool {
   private _scheduler
   private _pubSub
+  private _tasker
 
   constructor(app) {
     super(app, {
@@ -24,7 +29,7 @@ export class EngineSpool extends ExtensionSpool {
     this._pubSub = pubSub
 
     this.extensions = {
-      scheduler : {
+      scheduler: {
         get: () => {
           return this.scheduler
         },
@@ -34,12 +39,22 @@ export class EngineSpool extends ExtensionSpool {
         enumerable: true,
         configurable: true
       },
-      pubSub : {
+      pubSub: {
         get: () => {
           return this.pubSub
         },
         set: (newPubSub) => {
           throw new Error('pubSub can not be set through FabrixApp, check spool-engine instead')
+        },
+        enumerable: true,
+        configurable: true
+      },
+      tasker: {
+        get: () => {
+          return this.tasker
+        },
+        set: (tasker) => {
+          throw new Error('tasker can not be set through FabrixApp, check spool-engine instead')
         },
         enumerable: true,
         configurable: true
@@ -53,6 +68,14 @@ export class EngineSpool extends ExtensionSpool {
 
   get pubSub () {
     return this._pubSub
+  }
+
+  get tasker () {
+    return this._tasker
+  }
+
+  set tasker(tasker) {
+    this._tasker = tasker
   }
 
   /**
@@ -79,8 +102,10 @@ export class EngineSpool extends ExtensionSpool {
    * Adds Routes, Policies, and Agenda
    */
   async configure () {
+
     return Promise.all([
       Engine.configure(this.app),
+      Engine.buildTasker(this.app),
       Engine.copyDefaults(this.app)
     ])
   }
@@ -104,7 +129,8 @@ export class EngineSpool extends ExtensionSpool {
   async unload() {
     return Promise.all([
       Engine.cancelPubSub(this.app),
-      Engine.cancelCrons(this.app)
+      Engine.cancelCrons(this.app),
+      Engine.shutdownTasker(this.app)
     ])
   }
 }

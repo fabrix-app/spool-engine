@@ -1,11 +1,9 @@
-/* eslint no-console: [0] */
-'use strict'
+import { clone } from 'lodash'
+import * as sequelizeStream from 'sequelize-stream'
+import * as schedule from 'node-schedule'
 
-const _ = require('lodash')
-const sequelizeStream =  require('sequelize-stream')
 const pubSub = require('./pubSub')
-const schedule = require('node-schedule')
-const utils = require('./utils')
+import { Utils } from './utils'
 
 import { Client } from './Client'
 import { FabrixApp } from '@fabrix/fabrix'
@@ -122,7 +120,7 @@ export const Engine = {
    * @returns {Promise.<{}>}
    */
   copyDefaults: (app: FabrixApp) => {
-    app.config.set('engineDefaults', _.clone(app.config.get('engine')))
+    app.config.set('engineDefaults', clone(app.config.get('engine')))
     return Promise.resolve({})
   },
   // /**
@@ -204,12 +202,33 @@ export const Engine = {
 
     return
   },
+
   /**
-   * Add Tasks to Engine
+   * Build Tasker
+   */
+  buildTasker: (app: FabrixApp) => {
+    let taskerConfig = app.config.get('engine.tasks_config')
+    const profileName = app.config.get('engine.profile')
+    const profile = Utils.getWorkerProfile(profileName, taskerConfig)
+    taskerConfig = Utils.configureExchangesAndQueues(profile, taskerConfig)
+
+    app.spools.engine.tasker = new Client(app, rabbit, taskerConfig.exchangeName)
+
+    return Utils.registerTasks(profile, app, rabbit)
+  },
+
+  /**
+   * Add Tasks to Rabbit
    */
   addTasks: (app: FabrixApp) => {
-    const taskConfig = app.config.get('engine.tasks_config')
-    const taskProfile = utils.getWorkerProfile(taskConfig)
-    return taskProfile
+    rabbit.configure(app.config.get('engine.tasks_config'))
+    return Promise.resolve()
+  },
+
+  /**
+   * Shutdown Tasker
+   */
+  shutdownTasker: (app: FabrixApp) => {
+    return Promise.resolve(rabbit.shutdown())
   }
 }
