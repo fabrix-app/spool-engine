@@ -17,7 +17,7 @@ defaults: &defaults
         POSTGRES_DB: Sequelize
         POSTGRES_USER: root
         POSTGRES_PASSWORD: ""
-    - image: circleci/rabbitmq:latest
+    - image: circleci/rabbitmq:3.6.6
 
 jobs:
   test:
