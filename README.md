@@ -7,6 +7,15 @@
 [![Dependency Status][daviddm-image]][daviddm-url]
 [![Follow @FabrixApp on Twitter][twitter-image]][twitter-url]
 
+# Deprecated
+This spool is now deprecated...
+
+Please instead use:
+- [Tasks](https://github.com/fabrix-app/spool-tasks)
+- [Events](https://github.com/fabrix-app/spool-events)
+- [Crons](https://github.com/fabrix-app/spool-crons)
+
+
 Engine is a modern backend scaffold for node applications built on the flexibility and speed of Fabrix.
 
 ## Install
