@@ -240,6 +240,12 @@ export const Engine = {
    * Shutdown Tasker
    */
   shutdownTasker: (app: FabrixApp) => {
+    let taskerConfig = app.config.get('engine.tasks_config')
+
+    if (taskerConfig.enabled === false) {
+      return Promise.resolve()
+    }
+
     return Promise.resolve(rabbit.shutdown())
   }
 }

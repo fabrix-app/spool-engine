@@ -21,7 +21,7 @@ export const engineConfig = joi.object().keys({
   // Tasks Config
   tasks_config: joi.object().keys({
     enabled: joi.boolean(),
-    auto_que: joi.boolean(),
+    auto_queue: joi.boolean(),
     // profiles: joi.object().pattern(/^/, joi.array().items(joi.string().regex(/(.+)\.(.+)/))),
     profiles: joi.object().pattern(/^/, joi.array().items(joi.string())),
     exchange_name: joi.string(),
