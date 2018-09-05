@@ -21,7 +21,7 @@ export const engine = {
   },
   tasks_config: {
     enabled: true,
-    auto_que: true,
+    auto_queue: true,
     connection: {
       // optional, defaults to `tasks-work-x`
       exchange: process.env.ENGINE_TASK_EXCHANGE,
