@@ -208,6 +208,11 @@ export const Engine = {
    */
   buildTasker: (app: FabrixApp) => {
     let taskerConfig = app.config.get('engine.tasks_config')
+
+    if (taskerConfig.enabled === false) {
+      return Promise.resolve()
+    }
+
     const profileName = app.config.get('engine.profile')
     const profile = Utils.getWorkerProfile(profileName, taskerConfig)
     taskerConfig = Utils.configureExchangesAndQueues(profile, taskerConfig)
@@ -221,7 +226,13 @@ export const Engine = {
    * Add Tasks to Rabbit
    */
   addTasks: (app: FabrixApp) => {
-    rabbit.configure(app.config.get('engine.tasks_config'))
+    let taskerConfig = app.config.get('engine.tasks_config')
+
+    if (taskerConfig.enabled === false) {
+      return Promise.resolve()
+    }
+
+    rabbit.configure(taskerConfig)
     return Promise.resolve()
   },
 

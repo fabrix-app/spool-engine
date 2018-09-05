@@ -7,17 +7,20 @@ export const engineConfig = joi.object().keys({
   profile: joi.string().allow(null).required(),
   // Cron Job Config
   crons_config: joi.object().keys({
+    enabled: joi.boolean(),
     auto_schedule: joi.boolean(),
     uptime_delay: joi.number(),
     profiles: joi.object().pattern(/^/, joi.array().items(joi.string().regex(/(.+)\.(.+)/)))
   }),
   // Events Config
   events_config: joi.object().keys({
+    enabled: joi.boolean(),
     auto_subscribe: joi.boolean(),
     profiles: joi.object().pattern(/^/, joi.array().items(joi.string().regex(/(.+)\.(.+)/)))
   }),
   // Tasks Config
   tasks_config: joi.object().keys({
+    enabled: joi.boolean(),
     auto_que: joi.boolean(),
     // profiles: joi.object().pattern(/^/, joi.array().items(joi.string().regex(/(.+)\.(.+)/))),
     profiles: joi.object().pattern(/^/, joi.array().items(joi.string())),
