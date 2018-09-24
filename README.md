@@ -1,5 +1,12 @@
 # spool-engine
 
+# THIS SPOOL IS DEPRECATED
+This spool as completed EOL and has been split into 3 spools
+- [CronsSpool](https://github.com/fabrix-app/spool-crons)
+- [EventsSpool](https://github.com/fabrix-app/spool-events)
+- [TasksSpool](https://github.com/fabrix-app/spool-tasks)
+Please condsider using these instead as this spool will no longer be maintained.
+
 [![Gitter][gitter-image]][gitter-url]
 [![NPM version][npm-image]][npm-url]
 [![Build Status][ci-image]][ci-url]
